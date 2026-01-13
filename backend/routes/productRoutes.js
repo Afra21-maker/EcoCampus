@@ -1,17 +1,17 @@
-const authMiddleware = require('../middleware/authMiddleware'); // Güvenlik şart
+const authMiddleware = require('../middleware/authMiddleware');
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
 const pool = require('../db'); // Veritabanı bağlantısı şart
 
 
-// 1. Tüm ürünleri getir (Giriş yapmayanlar da görebilir)
+// 1. Tüm ürünleri getir 
 router.get('/', productController.getAllProducts);
 
-// 2. Yeni ürün ekle (Giriş yapmak şart)
+// 2. Yeni ürün ekle
 router.post('/', authMiddleware, productController.createProduct);
 
-// 3. Ürün Silme (PDF Gereksinimi - Sadece ilanın sahibi silebilir)
+// 3. Ürün Silme 
 router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const { id } = req.params;
@@ -29,7 +29,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     }
 });
 
-// 4. Ürün Güncelleme (PDF Madde 2.4 - Sadece ilanın sahibi güncelleyebilir)
+// 4. Ürün Güncelleme
 router.put('/:id', authMiddleware, async (req, res) => {
     const { id } = req.params;
     const { name, description, price, category, image_url } = req.body;
