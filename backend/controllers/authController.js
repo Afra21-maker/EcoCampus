@@ -1,14 +1,14 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Az önce oluşturduğumuz model
+const User = require('../models/User'); 
 
 // KAYIT OLMA (Register)
 exports.register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
         
-        // Şifreyi hashleme (Güvenlik gereksinimi) 
+        // Şifreyi hashleme 
         const hashedPassword = await bcrypt.hash(password, 10); 
         
         const newUser = await User.create(username, email, hashedPassword);
