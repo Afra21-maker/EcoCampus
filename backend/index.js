@@ -5,21 +5,21 @@ const pool = require('./db'); // Veritabanı bağlantısı
 
 const app = express();
 
-// Middleware (Ara Yazılımlar)
+// Middleware 
 app.use(cors()); // Frontend'in Backend ile konuşmasına izin ver
 app.use(express.json()); // JSON verilerini oku
 
-// ROTALAR (İşleri ilgili dosyalara paslıyoruz)
+// ROTALAR
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 
-// SUNUCUYU BAŞLATMA FONKSİYONU
+// SUNUCUYU BAŞLATMA 
 async function startServer() {
     try {
-        // PDF Gereksinimi: Kategorileri otomatik hazırla
+
         await pool.query(`
             INSERT INTO categories (name) 
             VALUES ('Elektronik'), ('Kitap'), ('Eşya'), ('Bağış') 
