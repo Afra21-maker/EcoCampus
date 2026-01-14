@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
       const res = await axios.post(`${API_URL}/auth/login`, { email, password });
       
       setLoading(false);
-      // Başarılı girişten sonra HomeScreen'e yönlendiriyoruz
+     
       navigation.navigate('Home', { 
         user: res.data.user, 
         token: res.data.token 
